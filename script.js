@@ -1,61 +1,56 @@
 
 const container = document.querySelector("container");
+const button = document.querySelector("button");
 let box;
-let boxlist = [];
-let size = Math.pow(16,2);
+let x = 16;
+boxCreator();
+function boxCreator()
+{
+    let size = Math.pow(x,2);
+var containerside = container.getBoundingClientRect().width - 1.6;
+var boxsize = (containerside/x) - 2*0.8;
+boxcolor = document.createElement('div');
 
-
-//container height: no of boxes * height of each box
-//container width: no of boxes * width of each box
 for(let i = 0; i < size; i++)
 {
     box = document.createElement("div");
     box.classList.add("box");
-    boxlist += box;  
+    box.style.width = `${boxsize}px`;
+    box.style.height = `${boxsize}px`;
     container.append(box);
 }
-console.log(document.querySelector(".box").getBoundingClientRect().width);
-console.log(document.querySelector(".box").clientWidth);
+
 const boxes = document.querySelectorAll(".box");
 
+button.onclick = ()=>{
+
+    x = window.prompt("Enter size of grid");
+    x = parseInt(x);
+    if(!x || typeof(x) === 'string')
+    {
+        x = 16;
+    }
+    if(x > 100)
+    {
+        window.alert("enter a value below 100!");
+        x = 16;
+    }
+    container.innerHTML = '';
+    boxCreator();
+};
+
 boxes.forEach((box) => {
-    let cond = true;
+
     box.addEventListener('mouseover', (e)=>{
 
-        if(cond)
-            box.setAttribute("style","background-color: grey");
+        box.style.backgroundColor = "grey";
              
-       
-        
     })
-    box.addEventListener('mouseleave', () =>{
-
-        if(cond)
-            box.setAttribute("style","background-color");
-               
-    })
-    box.addEventListener('mousedown',(e) =>{
-
-        if(e.button === 0)
-        {
-            console.log(e.button);
-            box.setAttribute("style","background-color: black");
-            cond = false;
-        }
-        if(e.button === 2)
-            {    
-                console.log(e.button);
-               
-                box.setAttribute("style","background-color");
-                cond = true;
-            }
-        
-    })
-    
-    box.addEventListener('contextmenu', (e)=>{
-        e.preventDefault();
-    }) 
 })
+}
+
+ 
+    
 
 
 
