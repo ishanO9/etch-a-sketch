@@ -1,7 +1,11 @@
 
 const container = document.querySelector("container");
 const button = document.querySelector("button");
-let box;
+const rainbowbutton = document.querySelector(".rainbow");
+const clearbutton = document.querySelector(".cleargrid");
+let box,rainbowcond;
+let rainbowbuttoncond = "OFF";
+
 let x = 16;
 boxCreator();
 function boxCreator()
@@ -39,15 +43,47 @@ button.onclick = ()=>{
     boxCreator();
 };
 
+rainbowbutton.onclick = ()=>
+{      
+    if(rainbowbuttoncond === "OFF")
+    {
+        rainbowbuttoncond = "ON";
+        rainbowbutton.style.backgroundColor = `yellow`;
+    }
+    else
+    {
+        rainbowbuttoncond = "OFF";
+        rainbowbutton.style.backgroundColor = '';
+    }
+}
+
+clearbutton.onclick =() =>{
+
+    boxes.forEach((box) =>{
+
+        box.style.backgroundColor = "";
+    })
+}
+
 boxes.forEach((box) => {
 
-    box.addEventListener('mouseover', (e)=>{
+    box.addEventListener('mouseover', ()=>{
 
         box.style.backgroundColor = "grey";
-             
+
+        if(rainbowbuttoncond === "ON")
+        {
+            box.style.backgroundColor = `rgb(${randomcolor()},${randomcolor()},${randomcolor()})`;
+        }                   
     })
 })
 }
+
+function randomcolor()
+{
+    return Math.floor(Math.random() * 255);
+}
+
 
  
     
