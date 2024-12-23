@@ -3,7 +3,9 @@ const container = document.querySelector("container");
 const button = document.querySelector("button");
 const rainbowbutton = document.querySelector(".rainbow");
 const clearbutton = document.querySelector(".cleargrid");
+
 let box,rainbowcond;
+let opacity = [];
 let rainbowbuttoncond = "OFF";
 
 let x = 16;
@@ -19,10 +21,17 @@ for(let i = 0; i < size; i++)
 {
     box = document.createElement("div");
     box.classList.add("box");
+    box.classList.add(`opacity${i}`);
     box.style.width = `${boxsize}px`;
     box.style.height = `${boxsize}px`;
     container.append(box);
+
+    opacity[i] = document.querySelector(`.opacity${i}`);
+    
 }
+
+ // opacity[i] = querySelector(opacity[i]);
+
 
 const boxes = document.querySelectorAll(".box");
 
@@ -59,26 +68,35 @@ rainbowbutton.onclick = ()=>
 
 clearbutton.onclick =() =>{
 
-    boxes.forEach((box) =>{
+    boxes.forEach((box,i) =>{
 
-        box.style.backgroundColor = "";
+        boxes[i].style.backgroundColor = "";
+        boxes[i].style.opacity ='1';
     })
 }
 
-boxes.forEach((box) => {
+boxes.forEach((box, i) => {
 
+    boxes[i].style.opacity = `1`;
+    let originalopacity = `1`;
     box.addEventListener('mouseover', ()=>{
 
-        box.style.backgroundColor = "grey";
+        boxes[i].style.backgroundColor = "grey";
+        
+        if(boxes[i].style.opacity !== '0')
+        {
+            boxes[i].style.opacity -= "0.1";
+        }
 
         if(rainbowbuttoncond === "ON")
         {
             box.style.backgroundColor = `rgb(${randomcolor()},${randomcolor()},${randomcolor()})`;
-        }                   
+            box.style.opacity = '1';
+        } 
+        
     })
 })
 }
-
 function randomcolor()
 {
     return Math.floor(Math.random() * 255);
