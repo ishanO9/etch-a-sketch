@@ -5,7 +5,6 @@ const rainbowbutton = document.querySelector(".rainbow");
 const clearbutton = document.querySelector(".cleargrid");
 
 let box,rainbowcond;
-let opacity = [];
 let rainbowbuttoncond = "OFF";
 
 let x = 16;
@@ -21,17 +20,10 @@ for(let i = 0; i < size; i++)
 {
     box = document.createElement("div");
     box.classList.add("box");
-    box.classList.add(`opacity${i}`);
     box.style.width = `${boxsize}px`;
     box.style.height = `${boxsize}px`;
-    container.append(box);
-
-    opacity[i] = document.querySelector(`.opacity${i}`);
-    
+    container.append(box);    
 }
-
- // opacity[i] = querySelector(opacity[i]);
-
 
 const boxes = document.querySelectorAll(".box");
 
@@ -57,7 +49,7 @@ rainbowbutton.onclick = ()=>
     if(rainbowbuttoncond === "OFF")
     {
         rainbowbuttoncond = "ON";
-        rainbowbutton.style.backgroundColor = `yellow`;
+        rainbowbutton.style.backgroundColor = `red`;
     }
     else
     {
@@ -78,7 +70,6 @@ clearbutton.onclick =() =>{
 boxes.forEach((box, i) => {
 
     boxes[i].style.opacity = `1`;
-    let originalopacity = `1`;
     box.addEventListener('mouseover', ()=>{
 
         boxes[i].style.backgroundColor = "grey";
@@ -96,6 +87,7 @@ boxes.forEach((box, i) => {
         
     })
 })
+
 }
 function randomcolor()
 {
